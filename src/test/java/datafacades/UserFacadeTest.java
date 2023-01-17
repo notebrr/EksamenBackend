@@ -19,6 +19,7 @@ public class UserFacadeTest {
     private static EntityManagerFactory emf;
     private static UserFacade facade;
 
+
     User u1, u2;
 
     public UserFacadeTest() {
