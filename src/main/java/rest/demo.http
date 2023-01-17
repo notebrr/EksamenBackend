@@ -22,11 +22,12 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-  "userName": "chris",
+  "userName": "rehman",
+  "userEmail": "rehman@gmail.com",
   "userPass": "test123"
 }
 
 ### Deletes an existing person
-DELETE http://localhost:8080/api/users/chris
+DELETE http://localhost:8080/api/users/rehman
 Content-Type: application/json
 
