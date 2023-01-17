@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### List of all users
-GET http://localhost:8080/api/users/all
+GET http://localhost:8080/tomcat/3sem_exam_backend/api/users/all
 Content-Type: application/json
 
 ### System greets the admin in this case, if he's logged in
@@ -31,3 +31,16 @@ Content-Type: application/json
 DELETE http://localhost:8080/api/users/rehman
 Content-Type: application/json
 
+### Creates a new person
+POST https://lyngbys.me/tomcat/devops-starter/api/users
+Content-Type: application/json
+
+{
+  "userName": "rehman1",
+  "userEmail": "rehman@gmail.com",
+  "userPass": "test123"
+}
+
+### List of all users
+GET https://lyngbys.me/tomcat/devops-starter/api/users/all/
+Content-Type: application/json
