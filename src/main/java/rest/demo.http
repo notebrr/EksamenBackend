@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### List of all users
-GET http://localhost:8080/tomcat/3sem_exam_backend/api/users/all
+GET http://localhost:8080/api/users/all
 Content-Type: application/json
 
 ### System greets the admin in this case, if he's logged in
@@ -36,11 +36,11 @@ POST https://lyngbys.me/tomcat/devops-starter/api/users
 Content-Type: application/json
 
 {
-  "userName": "rehman1",
+  "userName": "rehman",
   "userEmail": "rehman@gmail.com",
   "userPass": "test123"
 }
 
 ### List of all users
-GET https://lyngbys.me/tomcat/devops-starter/api/users/all/
+GET https://lyngbys.me/tomcat/exam_backend/api/users/all/
 Content-Type: application/json

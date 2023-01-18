@@ -1,5 +1,6 @@
 package businessfacades;
 
+import dtos.DogDTO;
 import dtos.UserDTO;
 import entities.User;
 import errorhandling.API_Exception;
@@ -43,4 +44,14 @@ public class UserDTOFacade {
     public UserDTO deleteUser(String userName) throws API_Exception {
         return new UserDTO(userFacade.deleteUser(userName));
     }
+
+    //
+    public List<UserDTO> getAllWalkers() throws API_Exception {
+        return UserDTO.getUserDTOs(userFacade.getAllWalkers());
+    }
+
+    public List<DogDTO> getAllDogsFromOwner(String userName) throws API_Exception {
+        return DogDTO.getDogDTOs(userFacade.getAllDogsFromOwner(userName));
+    }
+
 }

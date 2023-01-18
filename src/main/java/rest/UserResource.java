@@ -3,6 +3,7 @@ package rest;
 import businessfacades.UserDTOFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.DogDTO;
 import dtos.UserDTO;
 import entities.User;
 
@@ -71,4 +72,39 @@ public class UserResource {
         UserDTO deletedUser = facade.deleteUser(userName);
         return Response.ok().entity(GSON.toJson(deletedUser)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
+
+    //US-1
+    @GET
+    @Path("/all/walkers")
+    public Response getAllWalkers() throws API_Exception {
+        return Response.ok().entity(GSON.toJson(facade.getAllWalkers())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    //US-2
+    @GET
+    @Path("/all/owner/{userName}")
+    public Response getAllDogsFromOwner(@PathParam("userName") String userName) throws API_Exception {
+        return Response.ok().entity(GSON.toJson(facade.getAllWalkers())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    //US-3
+    @GET
+    @Path("/all/walker/{userName}")
+    public Response getAllDogsFromWalker(@PathParam("userName") String userName) throws API_Exception {
+        return Response.ok().entity(GSON.toJson(facade.getAllWalkers())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    //US-4
+    /*
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response create(String content) throws API_Exception {
+        DogDTO dogDTO = GSON.fromJson(content, TrainingSessionDTO.class);
+        TrainingSessionDTO trainingDTO = trainingFacade.createTrainingSession(trainingSessionDTO);
+        return Response.ok().entity(GSON.toJson(trainingDTO)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+     */
+
 }

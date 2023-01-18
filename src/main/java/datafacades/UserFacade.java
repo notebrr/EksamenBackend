@@ -1,12 +1,12 @@
 package datafacades;
 
+import entities.Dog;
 import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import errorhandling.API_Exception;
-import errorhandling.NotFoundException;
 import security.errorhandling.AuthenticationException;
 import java.util.List;
 
@@ -119,4 +119,92 @@ public class UserFacade {
         }
         return user;
     }
+
+    //User stories
+
+    public List<User> getAllWalkers() throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u join ", User.class);
+            Role role = new Role();
+            role.setRoleName("walker");
+            query.setParameter("user_roles", role);
+            return query.getResultList();
+        } catch (Exception e){
+            throw new API_Exception("Fail. Cant get walkers for some reason",404,e);
+        }
+    }
+
+    public List<Dog> getAllDogsFromOwner(String userName) throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            Role role = new Role();
+            role.setRoleName("owner");
+            TypedQuery<Dog> query = em.createQuery("SELECT d FROM Dog d where d.userName = :owner", Dog.class);
+            //query.setParameter("user_roles", role);
+            return query.getResultList();
+        } catch (Exception e){
+            throw new API_Exception("Fail. Cant get walkers for some reason",404,e);
+        }
+    }
+
+    public List<Dog> getAllDogsFromWalker(String userName) throws API_Exception { // US-3
+        EntityManager em = getEntityManager();
+        try {
+            Role role = new Role();
+            role.setRoleName("owner");
+            TypedQuery<Dog> query = em.createQuery("SELECT d FROM Dog d where d.userName = :owner", Dog.class);
+            //query.setParameter("user_roles", role);
+            return query.getResultList();
+        } catch (Exception e){
+            throw new API_Exception("Fail. Cant get walkers for some reason",404,e);
+        }
+    }
+
+    //Admin
+    public Dog addNewDog(Dog dog) throws API_Exception { // US-4
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(dog);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new API_Exception("This is an error " + dog + "!");
+        } finally {
+            em.close();
+        }
+        return dog;
+    }
+
+
+    public Dog connectDogWithOwner(Dog dog) throws API_Exception { // US-5
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(dog);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new API_Exception("This is an error " + dog + "!");
+        } finally {
+            em.close();
+        }
+        return dog;
+    }
+
+
+    public Dog deleteDog(int id) throws API_Exception { // US-7
+        EntityManager em = getEntityManager();
+        try {
+            Dog tstoRemove = em.find(Dog.class, id);
+            em.getTransaction().begin();
+            em.remove(tstoRemove);
+            em.getTransaction().commit();
+            return tstoRemove;
+        } catch (Exception e) {
+            throw new API_Exception("could not remove training session with id: " + id, 404, e);
+        } finally {
+            em.close();
+        }
+    }
+
 }
