@@ -1,5 +1,6 @@
 package datafacades;
 
+import dtos.DogDTO;
 import entities.Dog;
 import entities.Role;
 import entities.User;
@@ -191,8 +192,21 @@ public class UserFacade {
         return dog;
     }
 
+    // US-6
+    public Dog update(Dog dog){
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.merge(dog);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return dog;
+    }
 
-    public Dog deleteDog(int id) throws API_Exception { // US-7
+    // US-7
+    public Dog deleteDog(int id) throws API_Exception {
         EntityManager em = getEntityManager();
         try {
             Dog tstoRemove = em.find(Dog.class, id);

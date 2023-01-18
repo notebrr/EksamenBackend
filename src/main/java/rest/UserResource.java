@@ -95,16 +95,23 @@ public class UserResource {
     }
 
     //US-4
-    /*
+    @Path("/dog")
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response create(String content) throws API_Exception {
-        DogDTO dogDTO = GSON.fromJson(content, TrainingSessionDTO.class);
-        TrainingSessionDTO trainingDTO = trainingFacade.createTrainingSession(trainingSessionDTO);
-        return Response.ok().entity(GSON.toJson(trainingDTO)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    public Response addDog(String content) throws API_Exception {
+        DogDTO dogDTO = GSON.fromJson(content, DogDTO.class);
+        DogDTO upload = facade.addNewDog(dogDTO);
+        return Response.ok().entity(GSON.toJson(upload)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
-     */
-
+    //US- 7
+    @DELETE
+    @Path("/dog/{dogId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response deleteDog(@PathParam("dogId") int dogId) throws API_Exception {
+        DogDTO deletedDog = facade.deleteDog(dogId);
+        return Response.ok().entity(GSON.toJson(deletedDog)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
 }

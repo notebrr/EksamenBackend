@@ -2,6 +2,7 @@ package businessfacades;
 
 import dtos.DogDTO;
 import dtos.UserDTO;
+import entities.Dog;
 import entities.User;
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
@@ -54,4 +55,15 @@ public class UserDTOFacade {
         return DogDTO.getDogDTOs(userFacade.getAllDogsFromOwner(userName));
     }
 
+    public DogDTO addNewDog(DogDTO dogDTO) throws API_Exception {
+        return new DogDTO(userFacade.addNewDog(dogDTO.getEntity()));
+    }
+
+    public DogDTO deleteDog(int dogId) throws API_Exception {
+        return new DogDTO(userFacade.deleteDog(dogId));
+    }
+
+    public DogDTO updateDog(DogDTO dogDTO) throws API_Exception {
+        return new DogDTO(userFacade.update(dogDTO.getEntity()));
+    }
 }

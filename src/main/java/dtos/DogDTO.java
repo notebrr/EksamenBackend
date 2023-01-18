@@ -9,20 +9,32 @@ import java.util.List;
 import java.util.Objects;
 
 public class DogDTO {
+    private int dog_id;
     private String dogName;
     private String gender;
     private String birthdate;
     private String breed;
     private List<DogDTO> dogList;
 
+    public int getDog_id() {
+        return dog_id;
+    }
+
+    public void setDog_id(int dog_id) {
+        this.dog_id = dog_id;
+    }
+
     public List<DogDTO> getDogList() {
         return dogList;
     }
 
     public DogDTO(Dog dog) {
+        /*
         dog.getDogList().forEach(user -> {
             dogList.add(new DogDTO(dog));
         });
+
+         */
         this.dogName = dog.getDogName();
         this.gender = dog.getGender();
         this.birthdate = dog.getBirthdate();
@@ -73,5 +85,14 @@ public class DogDTO {
         return dogDTOS;
     }
 
+    public Dog getEntity(){
+        Dog dog = new Dog();
+        dog.setDogId(this.dog_id);
+        dog.setDogName(this.dogName);
+        dog.setBirthdate(this.birthdate);
+        dog.setBreed(this.breed);
+        dog.setGender(this.gender);
+        return dog;
+    }
 
 }

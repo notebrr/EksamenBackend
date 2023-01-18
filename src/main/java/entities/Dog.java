@@ -3,23 +3,22 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 @Entity
 @NamedQuery(name = "Dog.deleteAllRows", query = "DELETE from Dog")
-@Table(name = "roles")
+@Table(name = "dog")
 public class Dog implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "dog_id")
+    private int dogId;
+
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "dog_name")
@@ -39,6 +38,14 @@ public class Dog implements Serializable {
     @NotNull
     @Column(name = "breed")
     private String breed;
+
+    /*
+    @JoinTable(name = "dog_owner", joinColumns = {
+            @JoinColumn(name = "dog_id", referencedColumnName = "dog_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")})
+
+     */
+
 
     public String getGender() {
         return gender;
@@ -64,23 +71,23 @@ public class Dog implements Serializable {
         this.breed = breed;
     }
 
-    @ManyToMany
-    private List<Dog> dogList;
-
-
-
-    public List<Dog> getDogList() {
-        return dogList;
-    }
-
-    public void setDogList(List<Dog> dogList) {
-        this.dogList = dogList;
-    }
 
     public Dog() {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dog dog = (Dog) o;
+        return dogName.equals(dog.dogName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dogName);
+    }
 
     public String getDogName() {
         return dogName;
@@ -88,6 +95,13 @@ public class Dog implements Serializable {
 
     public void setDogName(String dogName) {
         this.dogName = dogName;
+    }
+    public int getDogId() {
+        return dogId;
+    }
+
+    public void setDogId(int dogId) {
+        this.dogId = dogId;
     }
 
 
