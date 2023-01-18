@@ -126,10 +126,7 @@ public class UserFacade {
     public List<User> getAllWalkers() throws API_Exception {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<User> query = em.createQuery("SELECT u FROM User u join ", User.class);
-            Role role = new Role();
-            role.setRoleName("walker");
-            query.setParameter("user_roles", role);
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u JOIN u.roleList r WHERE r.roleName = 'walker'", User.class);
             return query.getResultList();
         } catch (Exception e){
             throw new API_Exception("Fail. Cant get walkers for some reason",404,e);
@@ -218,6 +215,17 @@ public class UserFacade {
             throw new API_Exception("could not remove training session with id: " + id, 404, e);
         } finally {
             em.close();
+        }
+    }
+
+    //Extra
+    public List<Dog> getAllDogs() throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Dog> query = em.createQuery("SELECT u FROM Dog u", Dog.class);
+            return query.getResultList();
+        } catch (Exception e){
+            throw new API_Exception("Can't find any users in the system",404,e);
         }
     }
 

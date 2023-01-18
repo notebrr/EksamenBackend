@@ -35,6 +35,7 @@ public class DogDTO {
         });
 
          */
+        this.dog_id = dog.getDogId();
         this.dogName = dog.getDogName();
         this.gender = dog.getGender();
         this.birthdate = dog.getBirthdate();

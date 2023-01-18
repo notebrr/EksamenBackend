@@ -66,4 +66,9 @@ public class UserDTOFacade {
     public DogDTO updateDog(DogDTO dogDTO) throws API_Exception {
         return new DogDTO(userFacade.update(dogDTO.getEntity()));
     }
+
+    //Extra
+    public List<DogDTO> getAllDogs() throws API_Exception {
+        return DogDTO.getDogDTOs(userFacade.getAllDogs());
+    }
 }

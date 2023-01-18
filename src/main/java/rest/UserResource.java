@@ -105,6 +105,17 @@ public class UserResource {
         return Response.ok().entity(GSON.toJson(upload)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
+    // US-6
+    @PUT
+    @Path("/dog/update")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response updateDog(String content) throws EntityNotFoundException, API_Exception {
+        DogDTO dogDTO = GSON.fromJson(content, DogDTO.class);
+        DogDTO updateDog = facade.updateDog(dogDTO);
+        return Response.ok().entity(GSON.toJson(updateDog)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
     //US- 7
     @DELETE
     @Path("/dog/{dogId}")
@@ -113,5 +124,12 @@ public class UserResource {
     public Response deleteDog(@PathParam("dogId") int dogId) throws API_Exception {
         DogDTO deletedDog = facade.deleteDog(dogId);
         return Response.ok().entity(GSON.toJson(deletedDog)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    //Extra
+    @GET
+    @Path("/dogs/all")
+    public Response getAllDogs() throws API_Exception {
+        return Response.ok().entity(GSON.toJson(facade.getAllDogs())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 }
