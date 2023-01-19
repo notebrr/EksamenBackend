@@ -1,6 +1,8 @@
 package businessfacades;
 
+import dtos.DogDTO;
 import dtos.UserDTO;
+import entities.Dog;
 import entities.Role;
 import entities.User;
 import errorhandling.API_Exception;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,10 +42,10 @@ public class UserDTOFacadeTest {
         Role userRole = new Role("user");
         User u1 = new User();
         User u2 = new User();
-        u1.setUserName("Oscar");
+        u1.setUserName("Rehman");
         u1.setUserPass("test");
         u1.addRole(userRole);
-        u2.setUserName("Mark");
+        u2.setUserName("Ole");
         u2.setUserPass("test");
         u2.addRole(userRole);
         try {
@@ -105,6 +108,28 @@ public class UserDTOFacadeTest {
         assertThrows(API_Exception.class, () -> facade.deleteUser("HEJSA"));
     }
 
+    @Test
+    public void addNewDog() throws API_Exception {
+        DogDTO dog = new DogDTO(new Dog(1, "dog1", "male", "01/01/2022", "breed1"));
+
+        assertEquals(dog.getDog_id(), facade.addNewDog(dog).getDog_id());
+    }
+
+    @Test
+    public void deleteDog() throws API_Exception {
+        DogDTO dog = new DogDTO(new Dog(1, "dog1", "male", "01/01/2022", "breed1"));
+        facade.addNewDog(dog);
+        assertEquals(dog.getDog_id(), facade.deleteDog(dog.getDog_id()).getDog_id());
+    }
+
+    @Test
+    public void updateDog() throws API_Exception {
+        DogDTO dog = new DogDTO(new Dog(1, "dog1", "male", "01/01/2022", "breed1"));
+        DogDTO updatedDog = new DogDTO(new Dog(1, "dog2", "female", "01/01/2022", "breed1"));
+
+
+        assertEquals(updatedDog.getEntity(), facade.updateDog(updatedDog).getEntity());
+    }
 }
 
 

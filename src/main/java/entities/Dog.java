@@ -10,6 +10,16 @@ import javax.validation.constraints.Size;
 @NamedQuery(name = "Dog.deleteAllRows", query = "DELETE from Dog")
 @Table(name = "dog")
 public class Dog implements Serializable {
+    public Dog(int dogId, String dogName, String gender, String birthdate, String breed) {
+        this.dogId = dogId;
+        this.dogName = dogName;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.breed = breed;
+    }
+    public Dog(){
+
+    }
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -72,9 +82,6 @@ public class Dog implements Serializable {
     }
 
 
-    public Dog() {
-
-    }
 
     @Override
     public boolean equals(Object o) {
